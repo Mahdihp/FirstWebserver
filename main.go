@@ -22,8 +22,8 @@ func main() {
 	//myarray := [...]int{1,2}
 
 	http.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
-		var att = req.URL.Host + "\n"
-		fmt.Fprintf(w, "Salam Azizam Fisrt Web Server", att)
+		var att = "<h1>" + req.URL.Host + "</h1>" + "\n"
+		fmt.Fprintf(w, "<h1>"+"Salam Azizam Fisrt Web Server"+"</h1>", att)
 	})
 	http.ListenAndServe(":8000", nil)
 
