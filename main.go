@@ -2,13 +2,12 @@ package main
 
 import (
 	"fmt"
+	"github.com/gorilla/mux"
 	"net/http"
 )
 
-const strConst string = "Salam"
-
 var (
-	wow string = "sss"
+	PORT = ":8000"
 )
 
 func main() {
@@ -21,10 +20,27 @@ func main() {
 	//var s2 = [...]int {1,2}
 	//myarray := [...]int{1,2}
 
-	http.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
+	/*http.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
 		var att = "<h1>" + req.URL.Host + "</h1>" + "\n"
+		att += req.URL.Query().Get("token")
+		att += req.FormValue("username")
 		fmt.Fprintf(w, "<h1>"+"Salam Azizam Fisrt Web Server"+"</h1>", att)
 	})
-	http.ListenAndServe(":8000", nil)
+	fs := http.FileServer(http.Dir("static/"))
+	http.Handle("/static/", http.StripPrefix("/static/", fs))
+	fmt.Println("Start Server On Port... "+PORT)
+	http.ListenAndServe(PORT,nil)*/
+
+	r := mux.NewRouter()
+	r.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
+		var att = "<h1>" + req.URL.Host + "</h1>" + "\n"
+		vars := mux.Vars(req)
+
+		att += vars["token"]
+		att += vars["username"]
+		fmt.Fprintf(w, "<h1>"+"Salam Azizam Fisrt Web Server"+"</h1>", att)
+	})
+	fmt.Println("Start Server On Port... " + PORT)
+	http.ListenAndServe(":8000", r)
 
 }
