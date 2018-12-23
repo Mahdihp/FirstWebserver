@@ -32,15 +32,18 @@ func main() {
 	http.ListenAndServe(PORT,nil)*/
 
 	r := mux.NewRouter()
-	r.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
-		var att = "<h1>" + req.URL.Host + "</h1>" + "\n"
-		vars := mux.Vars(req)
-
-		att += vars["token"]
-		att += vars["username"]
-		fmt.Fprintf(w, "<h1>"+"Salam Azizam Fisrt Web Server"+"</h1>", att)
-	})
+	r.HandleFunc("/", Home).Methods("GET")
+	//r.HandleFunc("/home", Home).Host("www.mybookstore.com")
+	//r.HandleFunc("/secure", SecureHandler).Schemes("https")
+	//r.HandleFunc("/insecure", InsecureHandler).Schemes("http")
 	fmt.Println("Start Server On Port... " + PORT)
 	http.ListenAndServe(":8000", r)
 
+}
+func Home(writer http.ResponseWriter, request *http.Request) {
+	var att = "<h1>" + request.URL.Host + "</h1>" + "\n"
+	vars := mux.Vars(request)
+	att += vars["token"]
+	att += vars["username"]
+	fmt.Fprintf(writer, "<h1>"+"Salam Azizam Fisrt Web Server"+"</h1>", att)
 }
