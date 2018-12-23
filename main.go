@@ -17,7 +17,6 @@ func main() {
 	//var s2  = "s"
 	// s3 := "s"
 	//var a [5]int
-
 	//var s = []int {1,2}
 	//var s2 = [...]int {1,2}
 	//myarray := [...]int{1,2}
